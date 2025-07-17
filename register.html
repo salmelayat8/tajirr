@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧑‍💼 إنشاء حساب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: right;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #ff4b8b;
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #d73774;
+    }
+
+    a {
+      color: #ff4b8b;
+      text-decoration: none;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <div class="container">
+    <h1>🧑‍💼 إنشاء حساب تاجر</h1>
+
+    <form onsubmit="signup(event)">
+      <input type="text" placeholder="الاسم الكامل" required />
+      <input type="email" placeholder="البريد الإلكتروني" required />
+      <input type="password" placeholder="كلمة المرور" required />
+            <input type="email" placeholder="رقم الهاتف" required />
+
+      <button type="submit">إنشاء الحساب</button>
+    </form>
+
+    <p>لديك حساب؟ <a href="login.html">سجّل الدخول</a></p>
+  </div>
+
+  <script>
+    function signup(e) {
+      e.preventDefault();
+      alert("✅ تم إنشاء الحساب بنجاح!");
+      // يمكنك التوجيه لاحقًا إلى dashboard.html
+    }
+  </script>
+
+</body>
+</html>

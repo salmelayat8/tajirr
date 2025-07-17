@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>الصفحة الرئيسية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Cairo', sans-serif; background: #f9f9f9; margin: 0; }
+    main { padding: 3rem 1rem; text-align: center; }
+    .btn { padding: 0.6rem 1.2rem; background: #ff4b8b; color: white; text-decoration: none; border-radius: 6px; margin: 0.5rem; display: inline-block; }
+    .btn.secondary { background: #6c757d; }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => { document.getElementById('navbar').innerHTML = data; });
+  </script>
+
+  <main>
+    <h1>👋 مرحبًا بك في تطبيق التاجر</h1>
+    <p>قم بتسجيل الدخول أو إنشاء حساب للبدء.</p>
+    <a href="login.html" class="btn">تسجيل الدخول</a>
+    <a href="register.html" class="btn secondary">إنشاء حساب</a>
+  </main>
+</body>
+</html>
