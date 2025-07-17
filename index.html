@@ -60,22 +60,6 @@ nav a:hover {
     <a href="register.html" class="btn secondary">إنشاء حساب</a>
   </main>
 
-<script>
-
-const dashboardLink = document.getElementById("dashboard-link");
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-    if (dashboardLink) dashboardLink.style.display = "inline-block";
-  } else {
-    if (logoutBtn) logoutBtn.style.display = "none";
-    if (dashboardLink) dashboardLink.style.display = "none";
-  }
-});
-
-  
-</script>
 
 
 </body>
