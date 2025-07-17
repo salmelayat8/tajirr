@@ -26,8 +26,23 @@
     <a href="register.html" class="btn secondary">إنشاء حساب</a>
   </main>
 
-<script type="module" src="auth-handler.js"></script>
+<script type="module" src="auth-handler.js">
+
+const dashboardLink = document.getElementById("dashboard-link");
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+    if (dashboardLink) dashboardLink.style.display = "inline-block";
+  } else {
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (dashboardLink) dashboardLink.style.display = "none";
+  }
+});
 
   
+</script>
+
+
 </body>
 </html>
