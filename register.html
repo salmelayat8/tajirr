@@ -140,28 +140,58 @@ nav {
       // يمكنك التوجيه لاحقًا إلى dashboard.html
     }
   </script>
+  <script>
 
-// Import the functions you need from the SDKs you need
+// signup.js
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// إعدادات Firebase الخاصة بك
 const firebaseConfig = {
   apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
   authDomain: "tajir-9905a.firebaseapp.com",
   projectId: "tajir-9905a",
-  storageBucket: "tajir-9905a.firebasestorage.app",
+  storageBucket: "tajir-9905a.appspot.com",
   messagingSenderId: "70565559850",
   appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
   measurementId: "G-97PVFF8F9Y"
 };
 
-// Initialize Firebase
+// تشغيل Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ربط النموذج
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const fullname = document.getElementById("fullname").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // حفظ معلومات إضافية للمستخدم في Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      fullname: fullname,
+      email: email,
+      uid: user.uid,
+      createdAt: new Date()
+    });
+
+    alert("تم التسجيل بنجاح!");
+    window.location.href = "login.html";
+
+  } catch (error) {
+    alert("خطأ أثناء التسجيل: " + error.message);
+  }
+});
+  </script>
+
 
   
 </body>
