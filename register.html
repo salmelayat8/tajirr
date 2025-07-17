@@ -141,50 +141,40 @@ nav {
   </script>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
-    authDomain: "tajir-9905a.firebaseapp.com",
-    projectId: "tajir-9905a",
-    storageBucket: "tajir-9905a.appspot.com",
-    messagingSenderId: "70565559850",
-    appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
-    measurementId: "G-97PVFF8F9Y"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-eN5L-v1fwIkxOIR0ZLq9PCEUiyS54mQ",
+      authDomain: "tajir-9905a.firebaseapp.com",
+      projectId: "tajir-9905a",
+      storageBucket: "tajir-9905a.appspot.com",
+      messagingSenderId: "848812327924",
+      appId: "1:848812327924:web:41b35cabc92799c0c71212"
+    };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  window.signup = async function (e) {
-    e.preventDefault();
+    function signup(e) {
+      e.preventDefault();
 
-    const name = document.querySelector("input[placeholder='الاسم الكامل']").value;
-    const email = document.querySelector("input[placeholder='البريد الإلكتروني']").value;
-    const password = document.querySelector("input[placeholder='كلمة المرور']").value;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // تخزين معلومات إضافية في Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        name,
-        email,
-        createdAt: new Date()
-      });
-
-      alert("✅ تم إنشاء الحساب بنجاح!");
-      window.location.href = "dashboard.html";
-
-    } catch (error) {
-      alert("حدث خطأ: " + error.message);
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("✅ تم إنشاء الحساب بنجاح!");
+          window.location.href = "dashboard.html";
+        })
+        .catch((error) => {
+          alert("حدث خطأ: " + error.message);
+        });
     }
-  }
-</script>
+
+    window.signup = signup;
+  </script>
   
 </body>
 </html>
