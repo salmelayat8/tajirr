@@ -166,7 +166,6 @@ nav {
     const name = document.querySelector("input[placeholder='الاسم الكامل']").value;
     const email = document.querySelector("input[placeholder='البريد الإلكتروني']").value;
     const password = document.querySelector("input[placeholder='كلمة المرور']").value;
-    const phone = document.querySelector("input[placeholder='رقم الهاتف']").value;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
