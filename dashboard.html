@@ -185,32 +185,7 @@ nav a:hover {
 
 <script type="module" src="auth-handler.js"></script>
 
- <script type="module">
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { auth } from './firebaseConfig.js'; // تأكد أن هذا المسار صحيح
 
-    const loginBtn = document.getElementById("login-btn");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    // مراقبة حالة الدخول
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "inline-block";
-      } else {
-        loginBtn.style.display = "inline-block";
-        logoutBtn.style.display = "none";
-      }
-    });
-
-    // تسجيل الخروج
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      signOut(auth).then(() => {
-        window.location.href = "index.html";
-      });
-    });
-  </script>
   
 </body>
 </html>
