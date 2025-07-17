@@ -140,57 +140,6 @@ nav {
       // يمكنك التوجيه لاحقًا إلى dashboard.html
     }
   </script>
-  <script>
-
-// signup.js
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-
-// إعدادات Firebase الخاصة بك
-const firebaseConfig = {
-  apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
-  authDomain: "tajir-9905a.firebaseapp.com",
-  projectId: "tajir-9905a",
-  storageBucket: "tajir-9905a.appspot.com",
-  messagingSenderId: "70565559850",
-  appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
-  measurementId: "G-97PVFF8F9Y"
-};
-
-// تشغيل Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// ربط النموذج
-document.getElementById("signupForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const fullname = document.getElementById("fullname").value;
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    // حفظ معلومات إضافية للمستخدم في Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      fullname: fullname,
-      email: email,
-      uid: user.uid,
-      createdAt: new Date()
-    });
-
-    alert("تم التسجيل بنجاح!");
-    window.location.href = "login.html";
-
-  } catch (error) {
-    alert("خطأ أثناء التسجيل: " + error.message);
-  }
-});
-  </script>
 
 
   
