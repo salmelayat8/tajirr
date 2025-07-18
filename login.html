@@ -1,50 +1,37 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>تسجيل الدخول</title>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
-      authDomain: "tajir-9905a.firebaseapp.com",
-      projectId: "tajir-9905a",
-      storageBucket: "tajir-9905a.appspot.com",
-      messagingSenderId: "70565559850",
-      appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
-      measurementId: "G-97PVFF8F9Y"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    window.loginUser = function(event) {
-      event.preventDefault(); // ❗ منع إعادة تحميل الصفحة
-
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // تم تسجيل الدخول بنجاح
-          const user = userCredential.user;
-          alert("تم تسجيل الدخول بنجاح!");
-          window.location.href = "dashboard.html"; // 🔁 إعادة التوجيه بعد الدخول
-        })
-        .catch((error) => {
-          alert("خطأ في تسجيل الدخول: " + error.message);
-        });
-    };
-  </script>
+  <title>تسجيل الدخول - Tajir DZ</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase-login.js"></script>
 </head>
 <body>
-  <h2>تسجيل الدخول</h2>
-  <form onsubmit="loginUser(event)">
-    <input type="email" id="email" placeholder="البريد الإلكتروني" required><br>
-    <input type="password" id="password" placeholder="كلمة المرور" required><br>
-    <button type="submit">دخول</button>
-  </form>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Tajir DZ</a>
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="login.html">تسجيل الدخول</a></li>
+        <li><a href="register.html">إنشاء حساب</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="auth-section">
+      <h2>تسجيل الدخول</h2>
+      <form id="login-form">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" required>
+
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" required>
+
+        <button type="submit">دخول</button>
+        <p class="error" id="login-error"></p>
+      </form>
+    </section>
+  </main>
 </body>
 </html>
