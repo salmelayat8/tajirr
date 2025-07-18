@@ -1,37 +1,39 @@
-<!-- ✅ القائمة -->
+<!-- ✅ Navbar HTML -->
 <nav style="background-color: #f8f9fa; padding: 10px;">
-  <ul id="navbar" style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
-    <li><a href="index.html">🏠 الرئيسية</a></li>
-    <li><a href="dashboard.html">📋 الطلبات</a></li>
-    <li><a href="login.html" id="login-link">🔐 تسجيل الدخول</a></li>
-    <li><a href="#" id="logout-link" style="display: none;">🚪 تسجيل الخروج</a></li>
-  </ul>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    
+    <!-- القسم الأيسر من القائمة -->
+    <ul id="navbar" style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
+      <li><a href="index.html">🏠 الرئيسية</a></li>
+      <li><a href="dashboard.html">📋 لوحة التحكم</a></li>
+    </ul>
+
+    <!-- القسم الأيمن من القائمة -->
+    <ul style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
+      <li id="welcome" style="font-weight: bold;"></li>
+      <li><a href="login.html" id="login-link">🔐 تسجيل الدخول</a></li>
+      <li><a href="#" id="logout-link" style="display: none;">🚪 تسجيل الخروج</a></li>
+    </ul>
+
+  </div>
 </nav>
 
-<!-- ✅ منطق التحقق من تسجيل الدخول -->
+<!-- ✅ JavaScript -->
 <script>
   const user = JSON.parse(localStorage.getItem("tajirUser"));
   const loginLink = document.getElementById("login-link");
   const logoutLink = document.getElementById("logout-link");
-  const navbar = document.getElementById("navbar");
+  const welcomeText = document.getElementById("welcome");
 
   if (user) {
-    // ✅ إذا كان المستخدم مسجلاً
     loginLink.style.display = "none";
     logoutLink.style.display = "inline-block";
-
-    // ✅ إضافة رسالة ترحيب
-    const welcomeItem = document.createElement("li");
-    welcomeItem.textContent = `👤 ${user.email}`;
-    welcomeItem.style.fontWeight = "bold";
-    navbar.appendChild(welcomeItem);
+    welcomeText.textContent = `👋 مرحبًا، ${user.email}`;
   }
 
-  // ✅ عند الضغط على تسجيل الخروج
   logoutLink.addEventListener("click", function (e) {
     e.preventDefault();
     localStorage.removeItem("tajirUser");
     window.location.href = "login.html";
   });
 </script>
-
