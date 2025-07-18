@@ -1,43 +1,165 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>إنشاء حساب</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>إنشاء حساب - تاجِر</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #0e1c36;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0e1c36;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success {
+      color: green;
+    }
+  </style>
 </head>
 <body>
-  <main class="container">
+
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="dashboard.html">لوحة التحكم</a></li>
+        <li><a href="login.html">دخول</a></li>
+        <li><a href="signup.html">إنشاء حساب</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sign Up Form -->
+  <div class="container">
     <h2>إنشاء حساب جديد</h2>
-    <form id="register-form">
-      <input type="email" id="register-email" placeholder="البريد الإلكتروني" required>
-      <input type="password" id="register-password" placeholder="كلمة السر" required>
-      <button type="submit">إنشاء حساب</button>
-    </form>
-    <p>لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
-    <div id="register-message"></div>
-  </main>
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+    <input type="password" id="password" placeholder="كلمة المرور" required />
+    <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور" required />
+    <button onclick="signUp()">إنشاء الحساب</button>
+    <div id="message" class="message"></div>
+  </div>
 
+  <!-- Firebase SDK -->
   <script type="module">
-    import { auth } from './firebase-config.js';
-    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    const form = document.getElementById("register-form");
-    const msg = document.getElementById("register-message");
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
+      authDomain: "tajir-9905a.firebaseapp.com",
+      projectId: "tajir-9905a",
+      storageBucket: "tajir-9905a.appspot.com",
+      messagingSenderId: "70565559850",
+      appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
+      measurementId: "G-97PVFF8F9Y"
+    };
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("register-email").value;
-      const password = document.getElementById("register-password").value;
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        window.location.href = "dashboard.html";
-      } catch (error) {
-        msg.textContent = "خطأ: " + error.message;
-        msg.style.color = "red";
+    window.signUp = () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const messageDiv = document.getElementById("message");
+
+      messageDiv.textContent = "";
+      messageDiv.className = "message";
+
+      if (!email || !password || !confirmPassword) {
+        messageDiv.textContent = "يرجى ملء جميع الحقول.";
+        messageDiv.classList.add("error");
+        return;
       }
-    });
+
+      if (password !== confirmPassword) {
+        messageDiv.textContent = "كلمتا المرور غير متطابقتين.";
+        messageDiv.classList.add("error");
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          messageDiv.textContent = "تم إنشاء الحساب بنجاح!";
+          messageDiv.classList.add("success");
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 2000);
+        })
+        .catch((error) => {
+          messageDiv.textContent = "خطأ: " + error.message;
+          messageDiv.classList.add("error");
+        });
+    };
   </script>
+
 </body>
 </html>
