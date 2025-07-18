@@ -2,35 +2,44 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>الرئيسية - تطبيق التاجر</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <title>الرئيسية</title>
 </head>
-<body style="font-family: 'Cairo', sans-serif;">
-
-<!-- الشريط العلوي -->
-<nav style="background-color: #fff; border-bottom: 1px solid #eee; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;">
-  <div style="font-weight: bold; color: #ff4b8b;">🛍️ تطبيق التاجر</div>
-  <div style="display: flex; gap: 1rem;">
-    <a href="index.html" style="text-decoration: none; color: #333;">🏠 الرئيسية</a>
-    <a href="dashboard.html" id="dashboard-link" style="display: none;">📦 لوحة التحكم</a>
-    <a href="notifications.html" style="text-decoration: none; color: #333;">🔔 الإشعارات</a>
-    <a href="settings.html" style="text-decoration: none; color: #333;">⚙️ الإعدادات</a>
+<body>
+  <nav>
     <a href="login.html" id="login-link">دخول</a>
-    <a href="#" id="logout-link" onclick="logout()">تسجيل الخروج</a>
-  </div>
-</nav>
+    <a href="#" id="logout-link" style="display: none;">تسجيل الخروج</a>
+    <a href="dashboard.html" id="dashboard-link" style="display: none;">لوحة التحكم</a>
+  </nav>
 
-<!-- محتوى الصفحة -->
-<main style="padding: 2rem; text-align: center;">
-  <h1>مرحبًا بك في تطبيق التاجر 👋</h1>
-  <p>منصة بسيطة لإدارة الطلبات، الإشعارات، وربط شركات التوصيل</p>
-</main>
+  <h1>مرحبًا بك!</h1>
 
-<!-- كود الجافاسكربت -->
-<script defer>
+  <script>
+    window.onload = function () {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const loginLink = document.getElementById("login-link");
+      const logoutLink = document.getElementById("logout-link");
+      const dashboardLink = document.getElementById("dashboard-link");
 
+      if (user) {
+        loginLink.style.display = "none";
+        logoutLink.style.display = "inline-block";
+        dashboardLink.style.display = "inline-block";
+      } else {
+        loginLink.style.display = "inline-block";
+        logoutLink.style.display = "none";
+        dashboardLink.style.display = "none";
 
+        // التوجيه إلى صفحة الدخول إذا لم يكن مسجلاً
+        window.location.href = "login.html";
+      }
+
+      // عند الضغط على تسجيل الخروج
+      logoutLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+      });
+    };
+  </script>
 </body>
 </html>
