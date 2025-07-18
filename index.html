@@ -39,14 +39,16 @@
     if (loginLink) loginLink.style.display = "none";
     if (logoutLink) logoutLink.style.display = "inline-block";
     if (dashboardLink) dashboardLink.style.display = "inline-block";
-  } else {
-    if (loginLink) loginLink.style.display = "inline-block";
-    if (logoutLink) logoutLink.style.display = "none";
-    if (dashboardLink) dashboardLink.style.display = "none";
+ if (user) {
+  if (loginLink) loginLink.style.display = "none";
+  if (logoutLink) logoutLink.style.display = "inline-block";
+  if (dashboardLink) dashboardLink.style.display = "inline-block";
+} else {
+  if (loginLink) loginLink.style.display = "inline-block";
+  if (logoutLink) logoutLink.style.display = "none";
+  if (dashboardLink) dashboardLink.style.display = "none";
+}
 
-    // إعادة توجيه الزائر إلى صفحة تسجيل الدخول إن لم يكن مسجلاً
-    window.location.href = "login.html";
-  }
 
   function logout() {
     localStorage.removeItem("user");
