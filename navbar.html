@@ -1,20 +1,103 @@
-```html
+<!-- navbar.html -->
 <nav class="navbar">
-  <ul class="nav-list">
-    <li><a href="index.html">الرئيسية</a></li>
-    <li id="auth-link"><a href="login.html">الدخول</a></li>
-  </ul>
+  <div class="container">
+    <a href="index.html" class="logo">تاجر 🧺</a>
+    
+    <ul class="nav-links" id="nav-links">
+      <!-- العناصر ستملأها الجافاسكريبت حسب حالة الدخول -->
+    </ul>
+  </div>
 </nav>
 
-<script>
-  const authLink = document.getElementById("auth-link");
-  const user = JSON.parse(localStorage.getItem("user"));
+<style>
+  .navbar {
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 
-  if (user && user.email) {
-    authLink.innerHTML = `<a href="dashboard.html">لوحة التحكم</a><button id="logout">تسجيل الخروج</button>`;
-    document.getElementById("logout").addEventListener("click", () => {
-      localStorage.removeItem("user");
-      window.location.href = "index.html";
+  .navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3f3f3f;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .nav-links li a {
+    text-decoration: none;
+    color: #3f3f3f;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+
+  .nav-links li a:hover {
+    color: #2e8b57;
+  }
+
+  .nav-links .logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+
+<script type="module">
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
+    authDomain: "tajir-9905a.firebaseapp.com",
+    projectId: "tajir-9905a",
+    storageBucket: "tajir-9905a.appspot.com",
+    messagingSenderId: "70565559850",
+    appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
+    measurementId: "G-97PVFF8F9Y"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const navLinks = document.getElementById('nav-links');
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      navLinks.innerHTML = `
+        <li><a href="dashboard.html">📋 لوحة الطلبات</a></li>
+        <li><a href="new-order.html">➕ طلب جديد</a></li>
+        <li><a href="settings.html">⚙️ إعدادات</a></li>
+        <li><button class="logout-btn" onclick="logout()">🚪 تسجيل الخروج</button></li>
+      `;
+    } else {
+      navLinks.innerHTML = `
+        <li><a href="login.html">🔐 تسجيل الدخول</a></li>
+        <li><a href="signup.html">🆕 إنشاء حساب</a></li>
+      `;
+    }
+  });
+
+  window.logout = function () {
+    signOut(auth).then(() => {
+      window.location.href = "login.html";
     });
   }
 </script>
