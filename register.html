@@ -1,30 +1,43 @@
-```html
 <!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>إنشاء حساب</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
 </head>
 <body>
-  <div id="navbar-placeholder"></div>
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => document.getElementById("navbar-placeholder").innerHTML = data);
-  </script>
-
-  <div class="form-container">
-    <h2>إنشاء حساب</h2>
-    <form id="registerForm">
-      <input type="email" id="registerEmail" placeholder="البريد الإلكتروني" required>
-      <input type="password" id="registerPassword" placeholder="كلمة المرور" required>
-      <button type="submit">تسجيل</button>
+  <main class="container">
+    <h2>إنشاء حساب جديد</h2>
+    <form id="register-form">
+      <input type="email" id="register-email" placeholder="البريد الإلكتروني" required>
+      <input type="password" id="register-password" placeholder="كلمة السر" required>
+      <button type="submit">إنشاء حساب</button>
     </form>
-  </div>
+    <p>لديك حساب؟ <a href="login.html">تسجيل الدخول</a></p>
+    <div id="register-message"></div>
+  </main>
 
-  <script type="module" src="register.js"></script>
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const form = document.getElementById("register-form");
+    const msg = document.getElementById("register-message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("register-email").value;
+      const password = document.getElementById("register-password").value;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        msg.textContent = "خطأ: " + error.message;
+        msg.style.color = "red";
+      }
+    });
+  </script>
 </body>
 </html>
-```
