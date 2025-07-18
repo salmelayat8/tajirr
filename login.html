@@ -2,27 +2,42 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تسجيل الدخول</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
 </head>
 <body>
-  <div id="navbar-placeholder"></div>
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => document.getElementById("navbar-placeholder").innerHTML = data);
-  </script>
-
-  <div class="form-container">
+  <main class="container">
     <h2>تسجيل الدخول</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-      <input type="password" id="password" placeholder="كلمة المرور" required>
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="البريد الإلكتروني" required>
+      <input type="password" id="login-password" placeholder="كلمة السر" required>
       <button type="submit">دخول</button>
     </form>
-  </div>
+    <p>ليس لديك حساب؟ <a href="register.html">أنشئ حساب</a></p>
+    <div id="login-message"></div>
+  </main>
 
-  <script type="module" src="login.js"></script>
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const form = document.getElementById("login-form");
+    const msg = document.getElementById("login-message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        msg.textContent = "خطأ: " + error.message;
+        msg.style.color = "red";
+      }
+    });
+  </script>
 </body>
 </html>
