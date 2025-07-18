@@ -14,32 +14,28 @@
   <h1>مرحبًا بك!</h1>
 
   <script>
-    window.onload = function () {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const loginLink = document.getElementById("login-link");
-      const logoutLink = document.getElementById("logout-link");
-      const dashboardLink = document.getElementById("dashboard-link");
+  const user = JSON.parse(localStorage.getItem("user"));
 
-      if (user) {
-        loginLink.style.display = "none";
-        logoutLink.style.display = "inline-block";
-        dashboardLink.style.display = "inline-block";
-      } else {
-        loginLink.style.display = "inline-block";
-        logoutLink.style.display = "none";
-        dashboardLink.style.display = "none";
+  const loginBtn = document.getElementById("login-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+  const dashboardLink = document.getElementById("dashboard-link");
 
-        // التوجيه إلى صفحة الدخول إذا لم يكن مسجلاً
-        window.location.href = "login.html";
-      }
+  if (user) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    dashboardLink.style.display = "inline-block";
+  } else {
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+    dashboardLink.style.display = "none";
+  }
 
-      // عند الضغط على تسجيل الخروج
-      logoutLink.addEventListener("click", function (e) {
-        e.preventDefault();
-        localStorage.removeItem("user");
-        window.location.href = "login.html";
-      });
-    };
-  </script>
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("user");
+    location.reload();
+  });
+</script>
+
+  
 </body>
 </html>
