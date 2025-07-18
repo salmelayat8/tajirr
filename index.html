@@ -1,66 +1,58 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>الصفحة الرئيسية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الرئيسية - تطبيق التاجر</title>
+  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-
-    nav {
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  font-family: 'Cairo', sans-serif;
-}
-
-nav .logo {
-  font-weight: bold;
-  color: #ff4b8b;
-  font-size: 1.2rem;
-}
-
-nav a {
-    padding: 0.6rem 1.2rem;
-    background: #066327;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    margin: 0.5rem;
-    display: inline-block;
-}
-
-nav a:hover {
-  color: #fff;
-}
-    
-    body { font-family: 'Cairo', sans-serif; background: #f9f9f9; margin: 0; }
-    main { padding: 3rem 1rem; text-align: center; }
-    .btn { padding: 0.6rem 1.2rem; background: #ff4b8b; color: white; text-decoration: none; border-radius: 6px; margin: 0.5rem; display: inline-block; }
-    .btn.secondary { background: #6c757d; }
-  </style>
 </head>
-<body>
-  <div id="navbar"></div>
-  <script>
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => { document.getElementById('navbar').innerHTML = data; });
-  </script>
+<body style="font-family: 'Cairo', sans-serif;">
 
-  <main>
-    <h1>👋 مرحبًا بك في تطبيق التاجر</h1>
-    <p>قم بتسجيل الدخول أو إنشاء حساب للبدء.</p>
-    <a href="login.html" class="btn">تسجيل الدخول</a>
-    <a href="register.html" class="btn secondary">إنشاء حساب</a>
-  </main>
+<!-- الشريط العلوي -->
+<nav style="background-color: #fff; border-bottom: 1px solid #eee; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;">
+  <div style="font-weight: bold; color: #ff4b8b;">🛍️ تطبيق التاجر</div>
+  <div style="display: flex; gap: 1rem;">
+    <a href="index.html" style="text-decoration: none; color: #333;">🏠 الرئيسية</a>
+    <a href="dashboard.html" id="dashboard-link" style="display: none;">📦 لوحة التحكم</a>
+    <a href="notifications.html" style="text-decoration: none; color: #333;">🔔 الإشعارات</a>
+    <a href="settings.html" style="text-decoration: none; color: #333;">⚙️ الإعدادات</a>
+    <a href="login.html" id="login-link">دخول</a>
+    <a href="#" id="logout-link" onclick="logout()">تسجيل الخروج</a>
+  </div>
+</nav>
 
+<!-- محتوى الصفحة -->
+<main style="padding: 2rem; text-align: center;">
+  <h1>مرحبًا بك في تطبيق التاجر 👋</h1>
+  <p>منصة بسيطة لإدارة الطلبات، الإشعارات، وربط شركات التوصيل</p>
+</main>
 
+<!-- كود الجافاسكربت -->
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  const loginLink = document.getElementById("login-link");
+  const logoutLink = document.getElementById("logout-link");
+  const dashboardLink = document.getElementById("dashboard-link");
+
+  if (user) {
+    if (loginLink) loginLink.style.display = "none";
+    if (logoutLink) logoutLink.style.display = "inline-block";
+    if (dashboardLink) dashboardLink.style.display = "inline-block";
+  } else {
+    if (loginLink) loginLink.style.display = "inline-block";
+    if (logoutLink) logoutLink.style.display = "none";
+    if (dashboardLink) dashboardLink.style.display = "none";
+
+    // إعادة توجيه الزائر إلى صفحة تسجيل الدخول إن لم يكن مسجلاً
+    window.location.href = "login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  }
+</script>
 
 </body>
 </html>
