@@ -34,41 +34,39 @@
   </main>
 
   <!-- ✅ Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <!-- صفحة login.html -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  <!-- ✅ إعداد Firebase -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
-      authDomain: "tajir-9905a.firebaseapp.com",
-      projectId: "tajir-9905a",
-      storageBucket: "tajir-9905a.firebasestorage.app",
-      messagingSenderId: "70565559850",
-      appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
-      measurementId: "G-97PVFF8F9Y"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-  </script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBJ3aTRXe4Cs8vgsaNV_3I740dv5Or2A04",
+    authDomain: "tajir-9905a.firebaseapp.com",
+    projectId: "tajir-9905a",
+    storageBucket: "tajir-9905a.appspot.com",
+    messagingSenderId: "70565559850",
+    appId: "1:70565559850:web:26d5b581e30d650d7b8d53",
+    measurementId: "G-97PVFF8F9Y"
+  };
 
-  <!-- ✅ تسجيل الدخول -->
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+  document.getElementById("login-btn").addEventListener("click", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          // ✅ نجاح تسجيل الدخول
-          window.location.href = "dashboard.html";
-        })
-        .catch((error) => {
-          document.getElementById("error").innerText = "فشل في تسجيل الدخول: " + error.message;
-        });
-    });
-  </script>
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        localStorage.setItem("user", JSON.stringify(userCredential.user));
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("خطأ: " + error.message);
+      });
+  });
+</script>
+
 </body>
 </html>
