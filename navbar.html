@@ -26,3 +26,9 @@ if (user) {
   if (dashboardLink) dashboardLink.style.display = "none";
 }
 </script>
+<script>
+function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "login.html"; // أو index.html حسب ما تريد
+}
+</script>
