@@ -19,6 +19,8 @@ const logoutLink = document.getElementById("logout-link");
 if (user) {
   if (loginLink) loginLink.style.display = "none";
   if (logoutLink) logoutLink.style.display = "inline-block";
+  const dashboardLink = document.getElementById("dashboard-link");
+if (dashboardLink) dashboardLink.style.display = "inline-block";
 } else {
   if (loginLink) loginLink.style.display = "inline-block";
   if (logoutLink) logoutLink.style.display = "none";
