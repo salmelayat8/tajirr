@@ -1,52 +1,24 @@
+```html
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <title>الرئيسية</title>
-  <div id="navbar-placeholder"></div>
-<script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
-</script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الرئيسية - تطبيق التاجر</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="navbar-placeholder"></div>
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => document.getElementById("navbar-placeholder").innerHTML = data);
+  </script>
 
-  <h1>مرحبًا بك!</h1>
-
- <script>
-  // الحصول على بيانات المستخدم من localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  // تعريف الأزرار
-  const loginBtn = document.getElementById("login-btn");
-  const logoutBtn = document.getElementById("logout-btn");
-  const dashboardLink = document.getElementById("dashboard-link");
-
-  // عرض الأزرار حسب حالة تسجيل الدخول
-  if (user) {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-block";
-    if (dashboardLink) dashboardLink.style.display = "inline-block";
-  } else {
-    if (loginBtn) loginBtn.style.display = "inline-block";
-    if (logoutBtn) logoutBtn.style.display = "none";
-    if (dashboardLink) dashboardLink.style.display = "none";
-  }
-
-  // عند الضغط على تسجيل الخروج
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("user");
-      location.reload(); // إعادة تحميل الصفحة بعد تسجيل الخروج
-    });
-  }
-</script>
-
-
-  
+  <div class="hero">
+    <h1>مرحبًا بك في تطبيق التاجر!</h1>
+    <p>منصة لتنظيم الطلبات وإرسالها لشركات التوصيل بكل سهولة.</p>
+  </div>
 </body>
 </html>
+```
