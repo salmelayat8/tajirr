@@ -11,18 +11,18 @@
 </nav>
 
 <script>
-
 const user = JSON.parse(localStorage.getItem("user"));
 const loginLink = document.getElementById("login-link");
 const logoutLink = document.getElementById("logout-link");
+const dashboardLink = document.getElementById("dashboard-link");
 
 if (user) {
   if (loginLink) loginLink.style.display = "none";
   if (logoutLink) logoutLink.style.display = "inline-block";
-  const dashboardLink = document.getElementById("dashboard-link");
-if (dashboardLink) dashboardLink.style.display = "inline-block";
+  if (dashboardLink) dashboardLink.style.display = "inline-block";
 } else {
   if (loginLink) loginLink.style.display = "inline-block";
   if (logoutLink) logoutLink.style.display = "none";
+  if (dashboardLink) dashboardLink.style.display = "none";
 }
 </script>
