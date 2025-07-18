@@ -1,34 +1,37 @@
-<nav style="background-color: #fff; border-bottom: 1px solid #eee; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-family: 'Cairo', sans-serif;">
-  <div style="font-weight: bold; color: #ff4b8b;">🛍️ تطبيق التاجر</div>
-  <div style="display: flex; gap: 1rem;">
-    <a href="index.html" style="text-decoration: none; color: #333;">🏠 الرئيسية</a>
-    <a href="dashboard.html" id="dashboard-link" style="display: none;">📦 لوحة التحكم</a>
-    <a href="notifications.html" style="text-decoration: none; color: #333;">🔔 الإشعارات</a>
-    <a href="settings.html" style="text-decoration: none; color: #333;">⚙️ الإعدادات</a>
-    <a href="login.html" id="login-link">دخول</a>
-    <a href="#" id="logout-link" onclick="logout()">تسجيل الخروج</a>
-  </div>
+<!-- ✅ القائمة -->
+<nav style="background-color: #f8f9fa; padding: 10px;">
+  <ul id="navbar" style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
+    <li><a href="index.html">🏠 الرئيسية</a></li>
+    <li><a href="dashboard.html">📋 الطلبات</a></li>
+    <li><a href="login.html" id="login-link">🔐 تسجيل الدخول</a></li>
+    <li><a href="#" id="logout-link" style="display: none;">🚪 تسجيل الخروج</a></li>
+  </ul>
 </nav>
 
+<!-- ✅ منطق التحقق من تسجيل الدخول -->
 <script>
-const user = JSON.parse(localStorage.getItem("user"));
-const loginLink = document.getElementById("login-link");
-const logoutLink = document.getElementById("logout-link");
-const dashboardLink = document.getElementById("dashboard-link");
+  const user = JSON.parse(localStorage.getItem("tajirUser"));
+  const loginLink = document.getElementById("login-link");
+  const logoutLink = document.getElementById("logout-link");
+  const navbar = document.getElementById("navbar");
 
-if (user) {
-  if (loginLink) loginLink.style.display = "none";
-  if (logoutLink) logoutLink.style.display = "inline-block";
-  if (dashboardLink) dashboardLink.style.display = "inline-block";
-} else {
-  if (loginLink) loginLink.style.display = "inline-block";
-  if (logoutLink) logoutLink.style.display = "none";
-  if (dashboardLink) dashboardLink.style.display = "none";
-}
+  if (user) {
+    // ✅ إذا كان المستخدم مسجلاً
+    loginLink.style.display = "none";
+    logoutLink.style.display = "inline-block";
+
+    // ✅ إضافة رسالة ترحيب
+    const welcomeItem = document.createElement("li");
+    welcomeItem.textContent = `👤 ${user.email}`;
+    welcomeItem.style.fontWeight = "bold";
+    navbar.appendChild(welcomeItem);
+  }
+
+  // ✅ عند الضغط على تسجيل الخروج
+  logoutLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    localStorage.removeItem("tajirUser");
+    window.location.href = "login.html";
+  });
 </script>
-<script>
-function logout() {
-  localStorage.removeItem("user");
-  window.location.href = "login.html"; // أو index.html حسب ما تريد
-}
-</script>
+
