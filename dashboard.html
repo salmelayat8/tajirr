@@ -22,4 +22,20 @@
 
   <script type="module" src="auth-check.js"></script>
 </body>
+
+<script type="module">
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    document.getElementById("welcome-msg").textContent = "مرحبًا بك، " + user.email;
+  }
+
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  });
+</script>
+
+  
 </html>
