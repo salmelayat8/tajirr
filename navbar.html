@@ -1,38 +1,20 @@
-<!-- navbar.html -->
-<nav style="background-color: #f8f9fa; padding: 10px;">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    
-    <!-- القسم الأيسر -->
-    <ul id="navbar" style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
-      <li><a href="index.html">🏠 الرئيسية</a></li>
-      <li><a href="dashboard.html">📋 لوحة التحكم</a></li>
-    </ul>
-
-    <!-- القسم الأيمن -->
-    <ul style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
-      <li id="welcome" style="font-weight: bold;"></li>
-      <li><a href="login.html" id="login-link">🔐 تسجيل الدخول</a></li>
-      <li><a href="#" id="logout-link" style="display: none;">🚪 تسجيل الخروج</a></li>
-    </ul>
-
-  </div>
+```html
+<nav class="navbar">
+  <ul class="nav-list">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li id="auth-link"><a href="login.html">الدخول</a></li>
+  </ul>
 </nav>
 
 <script>
-  const user = JSON.parse(localStorage.getItem("tajirUser"));
-  const loginLink = document.getElementById("login-link");
-  const logoutLink = document.getElementById("logout-link");
-  const welcomeText = document.getElementById("welcome");
+  const authLink = document.getElementById("auth-link");
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  if (user) {
-    loginLink.style.display = "none";
-    logoutLink.style.display = "inline-block";
-    welcomeText.textContent = `👋 مرحبًا، ${user.email}`;
+  if (user && user.email) {
+    authLink.innerHTML = `<a href="dashboard.html">لوحة التحكم</a><button id="logout">تسجيل الخروج</button>`;
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "index.html";
+    });
   }
-
-  logoutLink.addEventListener("click", function (e) {
-    e.preventDefault();
-    localStorage.removeItem("tajirUser");
-    window.location.href = "login.html";
-  });
 </script>
