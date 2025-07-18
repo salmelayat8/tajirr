@@ -1,14 +1,14 @@
-<!-- ✅ Navbar HTML -->
+<!-- navbar.html -->
 <nav style="background-color: #f8f9fa; padding: 10px;">
   <div style="display: flex; justify-content: space-between; align-items: center;">
     
-    <!-- القسم الأيسر من القائمة -->
+    <!-- القسم الأيسر -->
     <ul id="navbar" style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
       <li><a href="index.html">🏠 الرئيسية</a></li>
       <li><a href="dashboard.html">📋 لوحة التحكم</a></li>
     </ul>
 
-    <!-- القسم الأيمن من القائمة -->
+    <!-- القسم الأيمن -->
     <ul style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0;">
       <li id="welcome" style="font-weight: bold;"></li>
       <li><a href="login.html" id="login-link">🔐 تسجيل الدخول</a></li>
@@ -18,7 +18,6 @@
   </div>
 </nav>
 
-<!-- ✅ JavaScript -->
 <script>
   const user = JSON.parse(localStorage.getItem("tajirUser"));
   const loginLink = document.getElementById("login-link");
